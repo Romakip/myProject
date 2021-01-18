@@ -108,7 +108,7 @@ class CategoryController extends \ItForFree\SimpleMVC\mvc\Controller {
                 $newCategory = $Category->loadFromArray($_POST);
                 $newCategory->delete();
                 
-                $this->redirect($Url::link("archive/allcategories"));
+                $this->redirect($Url::link("admin/category/index"));
               
             }
             elseif (!empty($_POST['cancel'])) {

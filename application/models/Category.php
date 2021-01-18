@@ -71,4 +71,6 @@ class Category extends BaseExampleModel {
     }
     
     
+    
+    
 }

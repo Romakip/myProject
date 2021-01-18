@@ -75,12 +75,20 @@ class Article extends BaseExampleModel{
     /**
     * Вставляем текущий объек Article в базу данных, устанавливаем его ID.
     */
+    
+    
     public function insert() {
 
-        // Есть уже у объекта Article ID?
-        if ( !is_null( $this->id ) ) trigger_error ( "Article::insert(): Attempt to insert an Article object that already has its ID property set (to $this->id).", E_USER_ERROR );
-
         // Вставляем статью
+        
+        if ( isset($this->publicationDate) ) {
+        $publicationDate = explode ( '-', $this->publicationDate);
+
+        if ( count($publicationDate) == 3 ) {
+          list ( $y, $m, $d ) = $publicationDate;
+          $this->publicationDate = mktime ( 0, 0, 0, $m, $d, $y );
+          
+        }}
         
         $sql = "INSERT INTO $this->tableName ( publicationDate, categoryId, subcategoryId, title, summary, content, active ) VALUES ( FROM_UNIXTIME(:publicationDate), :categoryId, :subcategoryId, :title, :summary, :content, :active )";
         $st = $this->pdo->prepare( $sql );
@@ -90,10 +98,16 @@ class Article extends BaseExampleModel{
         $st->bindValue( ":title", $this->title, \PDO::PARAM_STR );
         $st->bindValue( ":summary", $this->summary, \PDO::PARAM_STR );
         $st->bindValue( ":content", $this->content, \PDO::PARAM_STR );
-        $st->bindValue( "active", 1, \PDO::PARAM_INT); 
+        $st->bindValue( "active", 1, \PDO::PARAM_INT);
         $res = $st->execute();        
         $this->id = $this->pdo->lastInsertId();
-                
+        
+        $sql = "INSERT INTO authors (article_id, author) VALUES (:id, :author)";
+        $st = $this->pdo->prepare( $sql );
+        $st->bindValue( ":id", $this->id, \PDO::PARAM_INT);
+        $st->bindValue( ":author", $this->author, \PDO::PARAM_INT);
+        $st->execute();
+        $this->id = $this->pdo->lastInsertId();
     }
 
     
@@ -114,13 +128,19 @@ class Article extends BaseExampleModel{
     */
     public function update() {
 
-      // Есть ли у объекта статьи ID?
-//      if ( is_null( $this->id ) ) trigger_error ( "Article::update(): "
-//              . "Attempt to update an Article object "
-//              . "that does not have its ID property set.", E_USER_ERROR );
+   
 
       // Обновляем статью
+        
+      if ( isset($this->publicationDate) ) {
+        $publicationDate = explode ( '-', $this->publicationDate);
 
+        if ( count($publicationDate) == 3 ) {
+          list ( $y, $m, $d ) = $publicationDate;
+          $this->publicationDate = mktime ( 0, 0, 0, $m, $d, $y );
+          
+        }}  
+        
       $sql = "UPDATE $this->tableName SET publicationDate=FROM_UNIXTIME(:publicationDate),"
               . " categoryId=:categoryId, subcategoryId =:subcategoryId, title=:title, summary=:summary,"
               . " content=:content, active=:active WHERE id = :id";
@@ -141,20 +161,15 @@ class Article extends BaseExampleModel{
       $st->bindValue( ":id", $this->id, \PDO::PARAM_INT);
       $st->execute();
       
-      $count = count($this->author);
-      $pleace_holder_author = self::Pls($count);
-      $pleace_holder_article = self::PlsId($count);
-      $i = 0;
-      foreach ($this->author as $avt){
-      $sql = "INSERT INTO authors (article_id, user_id) "
-              . "VALUES (:id$i, :author$i);";
+      
+      $sql = "INSERT INTO authors (article_id, author) "
+              . "VALUES (:id, :author);";
       $st= $this->pdo->prepare($sql);        
-      $st->bindValue(":id$i", $this->id, \PDO::PARAM_INT);  
-      $st->bindValue(":author$i", $avt, \PDO::PARAM_INT);
-      $i++;
+      $st->bindValue(":id", $this->id, \PDO::PARAM_INT);  
+      $st->bindValue(":author", $this->author, \PDO::PARAM_INT);
       $st->execute();
-            }     
-      //$st->execute();      
+         
+     //$st->execute();      
     }
        
     
@@ -173,13 +188,57 @@ class Article extends BaseExampleModel{
         }
     
     
+    public function storeFormValues ( $params ) {
+
+      // Сохраняем все параметры
+      $this->__construct( $params );
+
+      // Разбираем и сохраняем дату публикации
+      if ( isset($params['publicationDate']) ) {
+        $publicationDate = explode ( '-', $params['publicationDate'] );
+
+        if ( count($publicationDate) == 3 ) {
+          list ( $y, $m, $d ) = $publicationDate;
+          $this->publicationDate = mktime ( 0, 0, 0, $m, $d, $y );
+          
+        }
+      }
+    }    
+     
+    
+    public function getById($id, $tableName = "") {
+
+        $sql = "SELECT *, UNIX_TIMESTAMP(publicationDate) "
+                . "AS publicationDate FROM $this->tableName"
+                . " LEFT JOIN authors"
+                . " On article_id=id"
+                . " WHERE id = :id";
+        
+        $st = $this->pdo->prepare($sql);
+        $st->bindValue(":id", $id, \PDO::PARAM_INT);
+        $st->execute();
+
+        $row = $st->fetch();
+        $conn = null;
+        
+        if ($row) { 
+            return new Article($row);
+        }
+    }
         
     public function getList($numRows=1000000)  
     {
        
          
-        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM $this->tableName
-                ORDER BY  $this->orderBy LIMIT :numRows";
+        $sql = "SELECT SQL_CALC_FOUND_ROWS $this->tableName. *,
+                UNIX_TIMESTAMP(publicationDate) AS publicationDate,
+                GROUP_CONCAT(users.login SEPARATOR ', ') as author
+                FROM articles LEFT JOIN authors
+                ON $this->tableName.id = authors.article_id
+                LEFT JOIN users
+                ON users.id = authors.author 
+                GROUP BY $this->tableName.id
+                ORDER BY $this->orderBy LIMIT :numRows;";
         
         $modelClassName = static::class;
        
@@ -196,6 +255,7 @@ class Article extends BaseExampleModel{
         $sql = "SELECT FOUND_ROWS() AS totalRows"; //  получаем число выбранных строк
         $totalRows = $this->pdo->query($sql)->fetch();
 	
+        
         return (array("results" => $list, "totalRows" => $totalRows[0]));
         
     

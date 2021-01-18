@@ -131,7 +131,7 @@ class SubcategoryController extends \ItForFree\SimpleMVC\mvc\Controller {
                 $newSubcategory = $Subcategory->loadFromArray($_POST);
                 $newSubcategory->delete();
                 
-                $this->redirect($Url::link("archive/allsubcategories"));
+                $this->redirect($Url::link("admin/subcategory/index"));
               
             }
             elseif (!empty($_POST['cancel'])) {

@@ -4,7 +4,7 @@ use ItForFree\SimpleMVC\Config;
 $Url = Config::getObject('core.url.class');
 ?>
 
-<?php include('includes/admin-users-nav.php'); ?>
+<?php include('includes/admin-articles-nav.php'); ?>
 
 <h2><?= $deleteArticleTitle ?></h2>
 

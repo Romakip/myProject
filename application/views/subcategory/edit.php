@@ -22,6 +22,16 @@ $Subcategory = Config::getObject('core.subcategory.class');
 
 <?php include('includes/admin-subcategories-nav.php'); ?>
 
+
+<h2><?= $editSubcategoryTitle ?>
+    <span>
+        <?= $User->returnIfAllowed("admin/adminusers/delete", 
+            "<a href=" . $Url::link("admin/subcategory/delete&id=" . $_GET['id']) 
+            . ">[Удалить]</a>");?>
+    </span>
+</h2>
+
+
 <form id="editSubcategory" method="post" action="<?= $Url::link("admin/subcategory/edit&id=" . $_GET['id'])?>">
     <h5>Name subcategory</h5> 
     <input type="text" name="name" placeholder="наименование подкатегории" value="<?= $viewSubcategory->name?>"><br>

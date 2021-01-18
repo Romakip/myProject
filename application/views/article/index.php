@@ -1,3 +1,6 @@
+<script src="JS/jquery-3.2.1.js"></script>
+<script src="JS/loaderIdentity.js"></script>
+<script src="JS/JS-ajax.js"></script>
 <?php //include "includes/header.php" ?>
 
 <?php
@@ -21,18 +24,25 @@ $Article = Config::getObject('core.user.class');
     <tr>
       <th scope="col">Publication Date</th>
       <th scope="col">Article</th>
+      <th scope="col">Content</th>
       <th scope="col">Category</th>
       <th scope="col">Subcategory</th>
-      <th scope="col">Author</th>
       <th scope="col">Active</th>
+      <th scope="col">Author</th>
       <th scope="col">Редактировать</th>
     </tr>
      </thead>
+     
        <tbody>
     <?php foreach($articles as $article): ?>
+        <?php $article->fiftychar = mb_strimwidth($article->content, 0, 50) . '...';?>
     <tr>
-        <td> <?= $article->publicationDate ?> </td>
-        <td> <?= $article->summary ?> </td>
+        <td> <?= date('j M Y', $article->publicationDate)?></?> </td>
+        <td> <?= $article->title ?> </td>
+        <td class="summary<?php echo $article->id?>"><?php echo htmlspecialchars ($article->fiftychar)?>
+                <a href="//" class="ajaxNewArticleByPost" data-contentId="<?php echo $article->id?>"><?= "Показать продолжение POST" ?></a> 
+                <a href="//" class="ajaxNewArticleByGet" data-contentId="<?php echo $article->id?>"><?= "Показать продолжение GET" ?> </a> 
+        </td>   
         <?php foreach ($categories as $category):
                  if ($category->id == $article->categoryId){ ?>
                     <td>  <?= $category->name ?></td>
@@ -50,9 +60,12 @@ $Article = Config::getObject('core.user.class');
         <?php } else { ?>
             <td> <?="Статья не активна" ?> </td>
         <?php } ?>
-            
-            <td> <?= "Author" ?> </td>   
-            
+        
+        <?php if($article->author) {   ?> 
+            <td><?= $article->author ?> </td>  
+        <?php } else { ?>
+            <td><?= "Author unknow"?> </td>
+        <?php } ?>    
         <td>  <?= $Article->returnIfAllowed("admin/article/edit", 
                     "<a href=" . \ItForFree\SimpleMVC\Url::link("admin/article/edit&id=". $article->id) 
                     . ">[Редактировать]</a>");?></td>

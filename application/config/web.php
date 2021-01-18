@@ -42,8 +42,11 @@ $config = [
         ],
         'subcategory' => [
             'class' => \application\models\Subcategory::class
-        ]
-    ]    
+        ],
+        'ajax' => [
+            'class' => \application\controllers\AjaxController::class
+        ],
+        ]    
 ];
 
 return $config;
