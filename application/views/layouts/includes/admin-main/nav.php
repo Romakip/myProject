@@ -20,7 +20,7 @@ $User = Config::getObject('core.user.class');
         <li class="nav-item ">
             <a class="nav-link" href="/">Главная</a>
         </li>
-        <?php  if ($User->isAllowed("admin/article/index")): ?>
+        <?php if ($User->isAllowed("admin/article/index")): ?>
         <li class="nav-item"> 
             <a class="nav-link" href="<?= Url::link("admin/article/index") ?>">Article</a>
         </li> 

@@ -13,7 +13,7 @@ class AdminusersController extends \ItForFree\SimpleMVC\mvc\Controller
     
     protected $rules = [ //вариант 2:  здесь всё гибче, проще развивать в дальнешем
          ['allow' => true, 'roles' => ['admin']],
-         ['allow' => false, 'roles' => ['?', '@']],
+         ['allow' => false, 'roles' => ['?', '@']]
     ];
     
     public function indexAction()

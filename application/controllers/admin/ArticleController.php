@@ -65,6 +65,7 @@ class ArticleController extends \ItForFree\SimpleMVC\mvc\Controller
     
     public function editAction()
     {
+        
         $id = $_GET['id'];
         $Url = Config::get('core.url.class');
         

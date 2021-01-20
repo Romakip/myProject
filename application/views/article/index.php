@@ -29,7 +29,9 @@ $Article = Config::getObject('core.user.class');
       <th scope="col">Subcategory</th>
       <th scope="col">Active</th>
       <th scope="col">Author</th>
+      <?php if ($User->isAllowed("admin/article/edit")): ?>
       <th scope="col">Редактировать</th>
+      <?php endif; ?>
     </tr>
      </thead>
      
@@ -65,10 +67,12 @@ $Article = Config::getObject('core.user.class');
             <td><?= $article->author ?> </td>  
         <?php } else { ?>
             <td><?= "Author unknow"?> </td>
-        <?php } ?>    
+        <?php } ?>
+        <?php if ($User->isAllowed("admin/article/edit")): ?>
         <td>  <?= $Article->returnIfAllowed("admin/article/edit", 
                     "<a href=" . \ItForFree\SimpleMVC\Url::link("admin/article/edit&id=". $article->id) 
                     . ">[Редактировать]</a>");?></td>
+        <?php endif; ?>
     </tr>
     <?php endforeach; ?>
     
