@@ -1,8 +1,3 @@
-<script src="JS/jquery-3.2.1.js"></script>
-<script src="JS/loaderIdentity.js"></script>
-<script src="JS/JS-ajax.js"></script>
-<?php //include "includes/header.php" ?>
-
 <?php
 /* 
  * View article title in this project

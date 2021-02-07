@@ -47,6 +47,18 @@ $User = Config::getObject('core.user.class');
         </li>
         <?php endif; ?>
         
+        <?php  if ($User->isAllowed("admin/cart/index")): ?>
+        <li class="nav-item ">
+            <a class="nav-link" href="<?= Url::link("admin/cart/index") ?>"> Корзина </a>
+        </li>
+        <?php endif; ?>
+        
+        <?php  if ($User->isAllowed("admin/shop/index")): ?>
+        <li class="nav-item ">
+            <a class="nav-link" href="<?= Url::link("admin/shop/index") ?>"> Магазин </a>
+        </li>
+        <?php endif; ?>
+        
         <?php  if ($User->isAllowed("login/logout")): ?>
         <li class="nav-item ">
             <a class="nav-link" href="<?= Url::link("login/logout") ?>">Выход (<?= $User->userName ?>)</a>

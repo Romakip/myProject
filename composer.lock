@@ -117,12 +117,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/it-for-free/php-simple-assets.git",
-                "reference": "0961e497406854036b415ad719502987b4d4e715"
+                "reference": "93cce82c87fd2ceea1cd449a84fabe645374819e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/it-for-free/php-simple-assets/zipball/0961e497406854036b415ad719502987b4d4e715",
-                "reference": "0961e497406854036b415ad719502987b4d4e715",
+                "url": "https://api.github.com/repos/it-for-free/php-simple-assets/zipball/93cce82c87fd2ceea1cd449a84fabe645374819e",
+                "reference": "93cce82c87fd2ceea1cd449a84fabe645374819e",
                 "shasum": ""
             },
             "require": {
@@ -163,30 +163,31 @@
                 "source": "https://github.com/it-for-free/php-simple-assets/tree/master",
                 "issues": "https://github.com/it-for-free/php-simple-assets/issues"
             },
-            "time": "2020-03-17T18:16:06+00:00"
+            "time": "2021-01-26T10:07:51+00:00"
         },
         {
             "name": "it-for-free/rusphp",
-            "version": "v2.1.8",
+            "version": "v2.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/it-for-free/rusphp.git",
-                "reference": "f57641d40ea52ccefcc57f7a032f28d1d1fcdcf1"
+                "reference": "b8f7705fba74d355bec1b992cbf09ef182402d44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/it-for-free/rusphp/zipball/f57641d40ea52ccefcc57f7a032f28d1d1fcdcf1",
-                "reference": "f57641d40ea52ccefcc57f7a032f28d1d1fcdcf1",
+                "url": "https://api.github.com/repos/it-for-free/rusphp/zipball/b8f7705fba74d355bec1b992cbf09ef182402d44",
+                "reference": "b8f7705fba74d355bec1b992cbf09ef182402d44",
                 "shasum": ""
             },
             "require": {
                 "adbario/php-dot-notation": "*",
                 "it-for-free/array_column": "*",
-                "php": ">=5.3.0",
-                "ralouphie/mimey": "v1.0.*"
+                "jmoati/mimey": "3.0.*",
+                "php": ">=5.3.0"
             },
             "require-dev": {
-                "codeception/codeception": "~2.0"
+                "codeception/codeception": "^4.0.0",
+                "codeception/module-asserts": "^1.3"
             },
             "type": "library",
             "autoload": {
@@ -226,10 +227,10 @@
                 "yandex maps goole maps center zoom for point coords set"
             ],
             "support": {
-                "source": "https://github.com/it-for-free/rusphp/tree/v2.1.8",
+                "source": "https://github.com/it-for-free/rusphp/tree/v2.1.9",
                 "issues": "https://github.com/it-for-free/rusphp/issues"
             },
-            "time": "2020-11-30T12:48:26+00:00"
+            "time": "2021-01-18T15:00:36+00:00"
         },
         {
             "name": "it-for-free/simple-mvc",
@@ -237,12 +238,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/it-for-free/SimpleMVC.git",
-                "reference": "f759f7af8644f44799b0982126bed5e25041cdb3"
+                "reference": "62ff81e9a8aef3468388cd0caf8bd12741904b11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/it-for-free/SimpleMVC/zipball/f759f7af8644f44799b0982126bed5e25041cdb3",
-                "reference": "f759f7af8644f44799b0982126bed5e25041cdb3",
+                "url": "https://api.github.com/repos/it-for-free/SimpleMVC/zipball/62ff81e9a8aef3468388cd0caf8bd12741904b11",
+                "reference": "62ff81e9a8aef3468388cd0caf8bd12741904b11",
                 "shasum": ""
             },
             "require": {
@@ -271,28 +272,29 @@
                 "source": "https://github.com/it-for-free/SimpleMVC/tree/master",
                 "issues": "https://github.com/it-for-free/SimpleMVC/issues"
             },
-            "time": "2020-11-22T10:50:29+00:00"
+            "time": "2021-01-21T12:08:46+00:00"
         },
         {
-            "name": "ralouphie/mimey",
-            "version": "1.0.2",
+            "name": "jmoati/mimey",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ralouphie/mimey.git",
-                "reference": "2a0e997c733b7c2f9f8b61cafb006fd5fb9fa15a"
+                "url": "https://github.com/Jmoati/mimey.git",
+                "reference": "0551e7a4fdbeb970abe78eccdc3fd3712a6daa4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ralouphie/mimey/zipball/2a0e997c733b7c2f9f8b61cafb006fd5fb9fa15a",
-                "reference": "2a0e997c733b7c2f9f8b61cafb006fd5fb9fa15a",
+                "url": "https://api.github.com/repos/Jmoati/mimey/zipball/0551e7a4fdbeb970abe78eccdc3fd3712a6daa4a",
+                "reference": "0551e7a4fdbeb970abe78eccdc3fd3712a6daa4a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": "^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~3.7.0",
-                "satooshi/php-coveralls": ">=1.0"
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "phpstan/phpstan": "^0.12.64",
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "autoload": {
@@ -308,14 +310,17 @@
                 {
                     "name": "Ralph Khattar",
                     "email": "ralph.khattar@gmail.com"
+                },
+                {
+                    "name": "Jacques Moati",
+                    "email": "jacques@moati.net"
                 }
             ],
             "description": "PHP package for converting file extensions to MIME types and vice versa.",
             "support": {
-                "issues": "https://github.com/ralouphie/mimey/issues",
-                "source": "https://github.com/ralouphie/mimey/tree/master"
+                "source": "https://github.com/Jmoati/mimey/tree/3.0.1"
             },
-            "time": "2016-09-28T03:36:23+00:00"
+            "time": "2021-01-11T07:44:57+00:00"
         }
     ],
     "packages-dev": [],

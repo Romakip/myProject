@@ -7,6 +7,7 @@ $config = ItForFree\rusphp\PHP\ArrayLib\Merger::mergeRecursivelyWithReplace(
     require(__DIR__ . '/../application/config/web.php'), 
     $localConfig);
 
+\ItForFree\SimpleAsset\SimpleAssetManager::$assetsPath = '/assets';
 
 \ItForFree\SimpleMVC\Application::get()
     ->setConfiguration($config)

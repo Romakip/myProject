@@ -99,7 +99,6 @@ class SubcategoryController extends \ItForFree\SimpleMVC\mvc\Controller {
                 $Subcategory = new Subcategory();
                 
                
-            
                 $newSubcategory = $Subcategory->loadFromArray($_POST);
                 $newSubcategory->insert(); 
                 $this->redirect($Url::link("admin/subcategory/index"));
