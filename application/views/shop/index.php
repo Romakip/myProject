@@ -1,13 +1,18 @@
 <?php
 
 use ItForFree\SimpleMVC\Config;
+use ItForFree\SimpleAsset\SimpleAssetManager;
+use application\assets\ShopJavascriptAsset;
+ShopJavascriptAsset::add();
+SimpleAssetManager::printJS();
 
 $User = Config::getObject('core.user.class');
 
 
 ?>
 
-<h1>Магазин "Vivaldy"</h1>
+<h1><center>Магазин "Vivaldi"</center></h1>
+<center><img src="images/vivaldi.png" alt="shop"></center>
 
 <?php if (!empty($products)): ?>
 <table class="table">
@@ -19,6 +24,7 @@ $User = Config::getObject('core.user.class');
       <?php if ($User->isAllowed("admin/shop/edit")): ?>
       <th scope="col">edit</th>
       <?php endif; ?>
+      <th scope="col">buy</th>
       <th></th>
     </tr>
      </thead>
@@ -33,13 +39,29 @@ $User = Config::getObject('core.user.class');
         <td> <?= $product->count ?></td>
         <td> <?= "<a href=" . \ItForFree\SimpleMVC\Url::link("admin/shop/edit&id=". $product->id 
                     . ">(edit)</a>");?></td>
-        <?php if ($product->count > 0) : ?>
-        <td><button>Купить</button></td>
-        <?php endif ?>
+        <?php if (!empty($productsCart)) : ?>
+            <?php $i=0 ?>
+            <?php foreach ($productsCart as $productCart) : ?>
+                <?php $i++; ?>
+                <?php if ($product->id == $productCart['id']) : ?> 
+                    <td>Уже в корзине!</td>
+                    <?php           break; ?>  
+                <?php endif ?>
+                <?php if (count($productsCart) != $i) : ?>
+                    <?php continue; ?>
+                <?php else : ?>
+                    <td id="pullCartId<?= $product->id ?>"><button class = "shopCart" data-product-id="<?= $product->id ?>">В корзину</button></td>
+                <?php endif ?>    
+        <?php endforeach ?>  
+        <?php else : ?>
+                    <td id="pullCartId<?= $product->id ?>"><button class = "shopCart" data-product-id="<?= $product->id ?>">В корзину</button></td>
+        <?php endif ?>            
+
     </tr>    
     <?php 
     endforeach; 
           endif; 
           ?>
+    </table>
 <?php include('includes/shop-nav.php'); ?>
 

@@ -24,15 +24,28 @@ class CartController extends \ItForFree\SimpleMVC\mvc\Controller
         
         $Cart = new Cart();
         $Shop = new Shop();
-        
-        $products = $Shop->getList()['results'];
-        $this->view->addVar('products', $products);
-        
-        //$carts = $Cart->getList()['results'];
-        //$this->view->addVar('carts', $carts);
+        $user_id = $Cart->getByIdUser($_SESSION['user']['userName']);
+        $productsCart = $Cart->getByIdCart($user_id['id']);
+        $this->view->addVar('productsCart', $productsCart);
         
         $this->view->render('cart/index.php');
         
     }
+    
+    public function updateAction() {
+        
+        $Cart = new Cart();
+        $Shop = new Shop();
+        $responce = [
+            'status' => true,
+            'errors' => [],
+         ];
+        
+        $user_id = $Cart->getByIdUser($_SESSION['user']['userName']);
+        $products = $Cart->getByIdCart($user_id['id']);
+        
+        $answer = $Cart->BuyCart($products, $user_id['id']);
+        echo json_encode($answer);
+    } 
     
 }

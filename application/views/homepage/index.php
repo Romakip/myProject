@@ -1,3 +1,5 @@
+<a href="http://simplemvc-example.loc/index.php?route=admin/article/index">Articles</a>
+
 <?php 
 
 use ItForFree\SimpleMVC\Config;

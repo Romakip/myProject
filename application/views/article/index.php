@@ -4,7 +4,11 @@
  * 
  * 
  */
+use ItForFree\SimpleAsset\SimpleAssetManager;
 use ItForFree\SimpleMVC\Config;
+use application\assets\DemoJavascriptAsset;
+DemoJavascriptAsset::add();
+SimpleAssetManager::printJS();
 
 $Article = Config::getObject('core.user.class');
 ?>

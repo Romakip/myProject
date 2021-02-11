@@ -3,6 +3,7 @@
 namespace application\controllers\admin;
 use application\models\Category as Category;
 use ItForFree\SimpleMVC\Config;
+use application\models\Cart;
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -25,6 +26,12 @@ class CategoryController extends \ItForFree\SimpleMVC\mvc\Controller {
         $Category = new Category();
         
         $id = $_GET['id'] ?? null;
+        
+        $Cart = new Cart();
+       
+        $user_id = $Cart->getByIdUser($_SESSION['user']['userName']);
+        $productsCart = $Cart->getByIdCart($user_id['id']);
+        $this->view->addVar('productsCart', $productsCart);
         
         if ($id){ //если есть конкретная статья, то отобразим ее   
             

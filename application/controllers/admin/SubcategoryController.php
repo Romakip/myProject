@@ -4,6 +4,7 @@ namespace application\controllers\admin;
 use application\models\Category as Category;
 use application\models\Subcategory as Subcategory;
 use ItForFree\SimpleMVC\Config;
+use application\models\Cart;
 
 /* 
  * Controller subcategories
@@ -27,6 +28,12 @@ class SubcategoryController extends \ItForFree\SimpleMVC\mvc\Controller {
         $Subcategory = new Subcategory();
         $Category = new Category();
         $id = $_GET['id'] ?? null;
+        
+        $Cart = new Cart();
+       
+        $user_id = $Cart->getByIdUser($_SESSION['user']['userName']);
+        $productsCart = $Cart->getByIdCart($user_id['id']);
+        $this->view->addVar('productsCart', $productsCart);
         
         if ($id){ //если есть конкретная статья, то отобразим ее   
             

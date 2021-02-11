@@ -48,7 +48,7 @@ $User = Config::getObject('core.user.class');
         
         <?php  if ($User->isAllowed("admin/adminusers/index")): ?>
         <li class="nav-item ">
-            <a class="nav-link" href="<?= Url::link("admin/cart/index") ?>"> Корзина </a>
+            <a class="nav-link" href="<?= Url::link("admin/cart/index") ?>"><p id="CartCount">Корзина <?php echo !empty($productsCart) ? count($productsCart) : ""; ?></p></a>
         </li>
         <?php endif; ?>
         

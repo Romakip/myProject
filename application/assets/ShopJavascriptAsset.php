@@ -8,13 +8,12 @@ namespace application\assets;
 use ItForFree\SimpleAsset\SimpleAsset;
 use application\assets\JqueryAsset;
 
-class DemoJavascriptAsset extends SimpleAsset {
+class ShopJavascriptAsset extends SimpleAsset {
     
     public $basePath = '/JS';
     
     public $js = [
-        'JS-ajax.js',
-        'loaderIdentity.js'
+        'JS-ajax-shop.js'
     ];
     
     

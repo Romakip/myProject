@@ -5,6 +5,7 @@ use application\models\Subcategory as Subcategory;
 use \application\models\Adminusers as Adminusers;
 use application\models\Article as Article;
 use ItForFree\SimpleMVC\Config;
+use application\models\Cart;
 
 class ArticleController extends \ItForFree\SimpleMVC\mvc\Controller
 {
@@ -24,6 +25,12 @@ class ArticleController extends \ItForFree\SimpleMVC\mvc\Controller
         $Category = new Category();
         $Subcategory = new Subcategory();
         $User = new Adminusers();
+        
+        $Cart = new Cart();
+       
+        $user_id = $Cart->getByIdUser($_SESSION['user']['userName']);
+        $productsCart = $Cart->getByIdCart($user_id['id']);
+        $this->view->addVar('productsCart', $productsCart);
         
         
         $id = $_GET['id'] ?? null;

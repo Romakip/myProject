@@ -8,6 +8,7 @@
 
 namespace application\controllers\admin;
 use application\models\Shop;
+use application\models\Cart;
 use ItForFree\SimpleMVC\Config;
 /**
  * Description of shop
@@ -21,6 +22,11 @@ class ShopController extends \ItForFree\SimpleMVC\mvc\Controller
     public function indexAction() {
         
        $Shop = new Shop(); 
+       $Cart = new Cart();
+       
+       $user_id = $Cart->getByIdUser($_SESSION['user']['userName']);
+       $productsCart = $Cart->getByIdCart($user_id['id']);
+       $this->view->addVar('productsCart', $productsCart);
        
        $id = $_GET['id'] ?? null;
        
@@ -28,12 +34,14 @@ class ShopController extends \ItForFree\SimpleMVC\mvc\Controller
            
           $viewProducts = $Shop->getById($_GET['id']);
           $this->view->addVar('viewProducts', $viewProducts);
+          $user_id = $Cart->getByIdUser($_SESSION['user']['userName']);
           $this->view->render('shop/view-item.php'); 
        }
        else {
            
           $products = $Shop->getList()['results'];
           $this->view->addVar('products', $products);
+          
           $this->view->render('shop/index.php');
            
        }
