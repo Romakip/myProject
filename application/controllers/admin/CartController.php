@@ -36,16 +36,18 @@ class CartController extends \ItForFree\SimpleMVC\mvc\Controller
         
         $Cart = new Cart();
         $Shop = new Shop();
-        $responce = [
-            'status' => true,
-            'errors' => [],
-         ];
         
         $user_id = $Cart->getByIdUser($_SESSION['user']['userName']);
         $products = $Cart->getByIdCart($user_id['id']);
         
-        $answer = $Cart->BuyCart($products, $user_id['id']);
-        echo json_encode($answer);
+        $responce = [
+            'status' => true,
+            'errors' => [],
+            'user' => $user_id['id']
+         ];
+        
+        $responce['errors'] = $Cart->buyCart($products, $user_id['id']);
+        echo json_encode($responce);
     } 
     
 }

@@ -7,7 +7,7 @@ SimpleAssetManager::printCss();
 ?>
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+    <meta http-equiv="content-type" content="text/html; charset="windows-1251" />
     <title>SimpleMVC | Учебный проект</title>
 
  

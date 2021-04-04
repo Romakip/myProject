@@ -1,4 +1,4 @@
-<a href="http://simplemvc-example.loc/index.php?route=admin/article/index">Articles</a>
+<a href="http://simplemvc.loc/index.php?route=admin/article/index">Articles</a>
 
 <?php 
 

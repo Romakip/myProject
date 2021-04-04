@@ -72,23 +72,43 @@ class Cart extends BaseExampleModel{
     }
      
     
-    public function BuyCart($products, $user_id){
+    public function buyCart($products, $user_id){
         
-        foreach ($products as $product){
+        $anser = $this->checkArrayOnErrors($products);
+        if (!$anser){
+            foreach ($products as $product){
             
-            if ($product['count'] - $product['product_count'] > -1){
                 $productCount = $product['count'] - $product['product_count'];
                 $id = +$product['id'];
                 $sql = "UPDATE stock SET count=$productCount where id=$id";
                 $st = $this->pdo->prepare($sql);
                 $st->execute(); 
                 $this->deleteProductIncart($id, $user_id);
-            }else return true;
+            }
+        }    
+        else{
+            foreach ($products as $product)
+                if ($product['count'] - $product['product_count'] < 0)
+                    $error[] = $product['product'] . "(" . $product['product_count'] - $product['count'] . " штук)";
+            return $error;   
         }
-        return false;
         
     }
     
+    
+    public function checkArrayOnErrors($products){
+        
+        $answer = false;
+        foreach ($products as $product){
+            if ($product['count'] - $product['product_count'] > -1) "";
+              else {
+                  $answer = true;
+                  return $answer;
+              }     
+        }
+        return $answer;
+        
+    }
     
     
     public function deleteProductIncart($product_id, $user_id){

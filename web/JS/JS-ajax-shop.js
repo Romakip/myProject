@@ -41,7 +41,7 @@ function count_cart_minus() {
     $('button.minusCount').click(function(){
         let idCountMinus = $(this).attr('data-productId');
         let SumId = $(this).attr('data-priceId');
-        
+        $(this).attr('disabled','disabled');
         $.ajax({
             
             type: "POST",
@@ -55,6 +55,9 @@ function count_cart_minus() {
                 console.log(`Minus! ${idCountMinus}`);
                 $(`#CountId${idCountMinus}`).replaceWith(`<p id=CountId${idCountMinus}>${obj}</p>`);
                 $(`#SumId${idCountMinus}`).replaceWith(`<p id=SumId${idCountMinus}>${obj * SumId}</p>`);
+                $('button.minusCount').removeAttr('disabled');
+                $('span.errors').replaceWith('<span class="errors"></span>');
+                $(`button.buyAll`).removeAttr('disabled');
             })    
             
             .fail(function(xhr, status, error){
@@ -75,14 +78,15 @@ function count_cart_plus() {
     $('button.plusCount').click(function(){
         let idCountPlus = $(this).attr('data-productId');
         let SumId = $(this).attr('data-priceId');
-        
+        $(this).attr('disabled','disabled');
         console.log("id", idCountPlus);
         console.log("price", SumId);
+        
         $.ajax({
             
             type: "POST",
             url: "/index.php?route=ajax/indexUpdate",
-            //dataType: 'json',
+            dataType: 'json',
             data: `productId=${idCountPlus}&doing=plus`
         })
         
@@ -93,6 +97,9 @@ function count_cart_plus() {
                     console.log(obj);
                     $(`#CountId${idCountPlus}`).replaceWith(`<p id=CountId${idCountPlus}>${obj}</p>`);
                     $(`#SumId${idCountPlus}`).replaceWith(`<p id=SumId${idCountPlus}>${obj * SumId}</p>`);
+                    $('button.plusCount').removeAttr('disabled');
+                    $('span.errors').replaceWith('<span class="errors"></span>');
+                    $(`button.buyAll`).removeAttr('disabled');
         })
         
                 .fail(function(xhr, status, error){
@@ -110,25 +117,32 @@ function count_cart_plus() {
 
 function cart_buy_all(){
         
-        $(`button.buyAll`).one('click', function(){
-        let API = "Want";
-        console.log(API);
+        $(`button.buyAll`).click(function(){
+        $(this).attr('disabled','disabled');
         
         $.ajax({
             
             type: "POST",
             url: "/index.php?route=admin/cart/update",   
-            //dataType: 'json',
+            dataType: 'json',
         })
                 .done(function(obj){
                     
                     console.log('done!', obj);
-                    console.log("Успешно!");
-                    if (!obj){
+                    console.log(obj.errors);
+                    
+                    if (obj.errors == null){
+                        console.log("Roman");
                         $(`span#Botall`).replaceWith(`<h3>Спасибо за покупку, будем рады вам снова,
-                        наш <a href="http://simplemvc-example.loc/index.php?route=admin/shop/index">магазин</a> всегда открыт для Вас!</h3>`);
-                    }else if (obj){
-                        alert("На складе не хватает вещей, пожалуйста, попытайтесь купить позже");
+                        наш <a href="http://simplemvc.loc/index.php?route=admin/shop/index">магазин</a> всегда открыт для Вас!</h3>`);
+                    }else if (obj.errors){
+                        $('span.errors').append("Не хватает");
+                        for (let i = 0; i < obj.errors.length; i++) {
+                            console.log(obj.errors[i]);
+                            $('span.errors').append(' ' + obj.errors[i]).css('color', 'red');
+                            if(i+1 < obj.errors.length) $('span.errors').append(',');
+                            
+                        }
                     }    
         })
                 .fail(function(xhr, status, error){
@@ -136,6 +150,7 @@ function cart_buy_all(){
                     console.log(`xhr - ${xhr}`);
                     console.log(`status - ${status}`);
                     console.log(`error - ${error}`);
+                    console.log(obj);
         })
 
             

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/it-for-free/simple-mvc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/it-for-free/rusphp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jmoati/mimey" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/adbario/php-dot-notation" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/it-for-free/array_column" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/it-for-free/php-simple-assets" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
